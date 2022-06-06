@@ -1,13 +1,21 @@
-import { v4 } from 'uuid';
+const { v4 } = require('uuid');
 
 class Appointment {
 
     constructor(
-        customer_name,
+        appointment_date,
+        appointment_state,
+        doctor_name,
+        appointment_value,
+        customer_id
     ) {
         this.appointment_id = v4();
-        this.customer_name = customer_name;
+        this.appointment_date = appointment_date;
+        this.appointment_state = appointment_state;
+        this.doctor_name = doctor_name;
+        this.appointment_value = appointment_value;
+        this.customer_id = customer_id;
     }
 }
 
-export default Appointment;
+module.exports = Appointment;

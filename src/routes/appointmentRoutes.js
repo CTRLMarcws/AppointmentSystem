@@ -1,28 +1,33 @@
-import { Router } from 'express';
+const { Router } = require('express');
+const AppointmentService = require('../services/appointmentServices');
+const AppointmentRepository = require('../repository/appointmentRepository');
 
-import AppointmentRepository from "../repository/appointmentRepository";
-import AppointmentService from '../services/appointmentService'
+const router = Router();
+const repo = new AppointmentRepository();
+const service = new AppointmentService(repo);
 
-const appointmentRouter = Router();
-const AppointmentRepository = new AppointmentRepository();
+router.use(function timeLog(req, res, next) {
+    console.log('Requisição: ', req.method, req.url, ' às ', Date.now());
+    next();
+});
 
-appointmentRouter.get('/', (req, res) => {
-    const appointments = AppointmentRepository.all();
+// /:id
+router.get('/', (req, res) => {
+    appointments = service.readAll();
     return res.json(appointments)
-})
+});
 
-appointmentRouter.post('/applynew', (req, res) => {
+router.post('/applynew', (req, res) => {
     try {
         const { appointment_id } = req.body;
-        const createAppointment = new AppointmentService(AppointmentRepository);
 
-        const appointment = createAppointment.execute({
+        const appointment = service.insertOne({
             appointment_id
         })
         return res.json(appointment)
     } catch (error) {
-        return response.status(400).json({error})
+        return response.status(400).json({ error })
     }
 })
 
-export default appointmentRouter;
+module.exports = router;

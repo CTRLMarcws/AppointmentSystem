@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import appointmentRouter from './appointmentRoutes'
-import customerRouter from './customerRoutes'
+const { Router } = require('express');
+const appointmentRouter = require('./appointmentRoutes');
+// const customerRouter = require('./customerRoutes');
 
 const routes = Router();
 
 routes.use('/appointments', appointmentRouter);
-routes.use('/customer', customerRouter);
+// routes.use('/customer', customerRouter);
 
-export default routes;
+module.exports = routes;
