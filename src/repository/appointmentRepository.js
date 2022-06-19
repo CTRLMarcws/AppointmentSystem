@@ -1,4 +1,5 @@
 const { Appointment } = require('../models/Appointment');
+const { execute, format } = require('../database/index');
 //responsavel por obter dados no banco, é chamado pela service.
 
 class AppointmentRepository {
@@ -6,22 +7,27 @@ class AppointmentRepository {
         this.appointments = null;
     }
     
-    insert(id){
-        //execute sql?
+    insert({id}){
         const query = `INSERT INTO appointments(id) VALUES (?)`;
         const values = [id];
-        function fallback(err){
-            if (err) {
-                return err;
-            }
-            return render(pag, {saved: true});
+        try {
+            execute(format(query, values));
+        } catch (error) {
+            //error handler
         }
-        db.run(query, values, fallback)
     }
 
-    readAll() {}
+    async readAll() {
+        const query = `SELECT * FROM appointments`;
+        const results = await execute(query)
+        return results;
+    }
 
-    findByDate() {}
+    async findByDate() {
+        const query = ``
+        const results = await execute(query);
+        return results;
+    }
 
     findByRangeDate() {}
 
@@ -31,3 +37,5 @@ class AppointmentRepository {
 
     delete() {}
 }
+
+module.exports = AppointmentRepository;

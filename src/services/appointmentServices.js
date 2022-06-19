@@ -11,11 +11,16 @@ class AppointmentService {
         // find
         // same date? throw error
         // dados fazem sentido? regras de negocio
-        const appointment = this.appointmentRepository.create({appointment_id})
+        let id = appointment_id;
+        const appointment = this.appointmentRepository.insert({id});
+        console.log()
         return appointment;
     }
 
-    readAll() {}
+    async readAll() {
+        const appointments = await this.appointmentRepository.readAll()
+        return appointments;
+    }
 
     findByDate() {}
 

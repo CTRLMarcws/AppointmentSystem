@@ -1,38 +1,35 @@
-const { createConnection } = require('mysql');
-const config = require('../../config/default.json')
+const mysql = require('mysql2/promise');
+const config = require('../../config/default.json');
 
-const connection = createConnection({
-    host: config.database.host,
-    port: config.database.port,
-    user: config.database.user,
-    password: config.database.password,
-    database: config.database.database
-})
-
-const table = () => {
-    let exists = db.run()
-    if (!exists) {
-        const query = "CREATE TABLE"
-        const table = db.run(query);
-        return table;
-    }
-    return table;
+async function connect(){
+    if(global.connection && global.connection.state !== 'disconnected')
+        return global.connection;
+    
+    const conn = await mysql.createConnection(config.database);
+    console.log("MySql connected at", config.database.port);
+    global.connection = conn;
+    return conn;
 }
 
-connection.connect(err => {
-    if (err) throw err;
-    console.log('connected')
-});
-
-function execute(resQuery, res) {
-    const conn = mysql.createConnection({});
-    conn.query(resQuery, (err, results, fields) => {
-        if (err) {
-            res.json(err);
-        }
-        res.json(results);
-        conn.end();
-    })
+async function execute(request){
+    const conn = await connect();
+    const results = await conn.query(request);
+    return results[0];
 }
 
-module.exports = createConnection();
+function format(query, values) {
+    return mysql.format(query, values);
+}
+
+async function commit(request) {
+    const conn = await connect();
+    return await conn.commit();
+}
+
+module.exports = { execute, format, commit }
+
+/*
+CREATE USER 'scheduler'@'localhost' IDENTIFIED WITH mysql_native_password BY 'schedulerapplication';
+GRANT ALL PRIVILEGES ON *.* TO 'scheduler'@'localhost';
+FLUSH PRIVILEGES;
+ */

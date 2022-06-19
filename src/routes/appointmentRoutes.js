@@ -12,8 +12,9 @@ router.use(function timeLog(req, res, next) {
 });
 
 // /:id
-router.get('/', (req, res) => {
-    appointments = service.readAll();
+router.get('/', async (req, res) => {
+    const appointments = await service.readAll();
+    console.log(appointments)
     return res.json(appointments)
 });
 

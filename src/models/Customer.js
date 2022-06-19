@@ -3,7 +3,6 @@ const { v4 } = require('uuid');
 class Customer {
 
     constructor(
-
         customer_name,
         mobile_number,
         document_number,
