@@ -7,7 +7,7 @@ const repo = new AppointmentRepository();
 const service = new AppointmentService(repo);
 
 router.use(function timeLog(req, res, next) {
-    console.log('Requisição: ', req.method, req.url, ' às ', Date.now());
+    console.log('Requisição: ', req.method, req.url, ' às ', new Date().toISOString());
     next();
 });
 
@@ -15,7 +15,7 @@ router.use(function timeLog(req, res, next) {
 router.get('/', async (req, res) => {
     const appointments = await service.readAll();
     console.log(appointments)
-    return res.json(appointments)
+    return res.render('appointment.html')
 });
 
 router.post('/applynew', (req, res) => {

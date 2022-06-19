@@ -1,9 +1,19 @@
 {
-    "database": {
-        "host": "localhost",
-        "port": 3306,
-        "user": "scheduler",
-        "password": "schedulerapplication",
-        "database": "app"
+  "actualEnviroment": "fatec",  
+  "database": {
+    "fatec": {
+      "host": "localhost",
+      "port": 3306,
+      "user": "scheduler",
+      "password": "schedulerapplication",
+      "database": "schedulerdatabase"
+    },
+    "local": {
+      "host": "localhost",
+      "port": 3306,
+      "user": "app_sys",
+      "password": "SenhaDoAdm3",
+      "database": "schedulerdatabase"
     }
+  }
 }

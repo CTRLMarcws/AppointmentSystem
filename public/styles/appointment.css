@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
+input, select {
+  width: 100%;
+  height: auto;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+input[type=datetime-local]{
+  height: 40px;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  width: 30%;
+  height: auto;
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  width: 600px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-label {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-input {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less
+than 600px wide, make the two columns stack on top of each other instead of next to each other */
+/* @media screen and (max-width: 600px) {
+  .col-label, .col-input, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+} */
+/* border-radius: 5px;
+background-color: #fff; */
+
+.container-table {
+  width: 600px;
+  padding: 20px;
+}
+
+.container-table table {
+  table-layout: fixed;
+}
+
+th {
+  width: 120px;
+  height: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: #d6eeee;
+}
+
+tr:hover {
+  background-color: #34c0c0;
+}
+
+tr {
+  border: 1px solid #111;
+}

@@ -1,12 +1,14 @@
 const mysql = require('mysql2/promise');
 const config = require('../../config/default.json');
 
+const configEnv = Object.values(config.database).at(Object.keys(config.database).findIndex(key => key == config.actualEnviroment))
+
 async function connect(){
     if(global.connection && global.connection.state !== 'disconnected')
         return global.connection;
     
-    const conn = await mysql.createConnection(config.database);
-    console.log("MySql connected at", config.database.port);
+    const conn = await mysql.createConnection(configEnv);
+    console.log("MySql connected at", configEnv.port, 'Enviroment', config.actualEnviroment);
     global.connection = conn;
     return conn;
 }

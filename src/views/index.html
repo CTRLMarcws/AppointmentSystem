@@ -1,0 +1,33 @@
+{% extends "layout.html" %}}
+
+{% set pageId = "page-home" %}
+
+{% block styles %}
+  <!-- <link rel="stylesheet" href="/styles/home.css"> -->
+{% endblock styles %}
+
+{% block content %}
+  <div class="content">
+
+    <main>
+      <h1>Sistema de Agendamentos</h1>
+
+      <a href="/appointments">
+        <span></span>
+        <strong>Agendamentos</strong>
+      </a>
+
+      <p></p>
+      
+      <a href="/customers">
+        <span></span>
+        <strong>Clientes</strong>
+      </a>
+    </main>
+
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+  <script src="/scripts/index.js"></script>
+{% endblock scripts %}
