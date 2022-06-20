@@ -4,38 +4,19 @@
   rel="stylesheet"
   type="text/css"
   media="screen"
-  href="../styles/appointment.css"
+  href="/styles/appointment.css"
 />
 {% endblock styles %} {% block content %}
 <h2>Agendamentos</h2>
 
 <div class="container-content">
-  <form action="/appointments/applynew" method="POST">
-    curl 'http://localhost:4000/appointments/applynew' \
-  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
-  -H 'Accept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7' \
-  -H 'Cache-Control: max-age=0' \
-  -H 'Connection: keep-alive' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H 'Origin: http://localhost:4000' \
-  -H 'Referer: http://localhost:4000/appointments/' \
-  -H 'Sec-Fetch-Dest: document' \
-  -H 'Sec-Fetch-Mode: navigate' \
-  -H 'Sec-Fetch-Site: same-origin' \
-  -H 'Sec-Fetch-User: ?1' \
-  -H 'Upgrade-Insecure-Requests: 1' \
-  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.115 Safari/537.36' \
-  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Google Chrome";v="102"' \
-  -H 'sec-ch-ua-mobile: ?0' \
-  -H 'sec-ch-ua-platform: "Windows"' \
-  --data-raw 'nome=eai+vei+' \
-  --compressed
+  <form method="POST" action="/appointments/applynew" id="apply-new-app">
     <div class="row">
       <div class="col-label">
         <label for="app_date">Data:</label>
       </div>
       <div class="col-input">
-        <input type="datetime-local" id="app_date" name="app_date" />
+        <input type="datetime-local" id="app_date" class="inputs" name="app_date" />
       </div>
     </div>
 
@@ -44,7 +25,7 @@
         <label for="app_state">Status:</label>
       </div>
       <div class="col-input">
-        <select id="app_state" name="app_state">
+        <select id="app_state" name="app_state" class="inputs">
           <option value="initialized">Iniciado</option>
           <option value="scheduled">Agendado</option>
           <option value="done">Concluido</option>
@@ -58,7 +39,7 @@
         <label for="app_doc_name">Nome do médico:</label>
       </div>
       <div class="col-input">
-        <input type="text" id="app_doc_name" name="app_doc_name" />
+        <input type="text" id="app_doc_name" class="inputs" name="app_doc_name" />
       </div>
     </div>
 
@@ -67,7 +48,7 @@
         <label for="app_client">Nome do cliente:</label>
       </div>
       <div class="col-input">
-        <input type="search" id="app_client" name="app_client" />
+        <input type="search" id="app_client" class="inputs" name="app_client" />
       </div>
     </div>
 
@@ -82,11 +63,13 @@
           step="0.1"
           id="app_value"
           name="app_value"
+          class="inputs"
+          required
         />
       </div>
     </div>
     <div class="row">
-      <button type="submit">Agendar</button>
+      <button type="submit" id="button-submit">Agendar</button>
     </div>
   </form>
 </div>
@@ -113,25 +96,7 @@
   </table>
 </div>
 {% endblock content %}
-<!-- <br /><br /><br /><br /> -->
 
-<!-- <table>
-        <tr>
-          <th style="width: 100px;">Header 1</th>
-          <th style="width: 100px;">Header 2</th>
-          <th style="width: 100px;">Header 3</th>
-        </tr>
-        <tr>
-          <td>Cell 1</td>
-          <td>Cell 2</td>
-          <td>Cell 3</td>
-        </tr>
-        <tr>
-          <td>Cell 1</td>
-          <td>Cell 2</td>
-          <td>Cell 3</td>
-        </tr>
-      </table> -->
 {% block scripts %}
-<script src="../../public/scripts/appointment.js"></script>
+<script src="/scripts/appointment.js"></script>
 {% endblock scripts %}

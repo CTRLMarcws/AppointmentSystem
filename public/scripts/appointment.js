@@ -1,30 +1,45 @@
-/* const mock = require('../../src/database/test.json');
-const table = document.querySelector(".table tbody");
+const btn = document.getElementById("button-submit");
+const form = document.getElementById("apply-new-app");
 
-var tmplSource = document.getElementById("tmplLinha").innerHTML;
-// var tmplHandle = Handlebars.compile(tmplSource);
+const formToJson = (params, data) => {
+  params.forEach((element) => {
+    if (typeof element == "object") {
+      data[element.id] = element.value;
+    }
+  });
+  return data;
+};
 
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let childs = Object.entries(e.target.getElementsByClassName("inputs")).flat();
+  let values = {
+    app_date: "",
+    app_state: "",
+    app_doc_name: "",
+    app_client: "",
+    app_value: "",
+  };
 
+  values = formToJson(childs, values);
 
-date "app_date"
+  console.log(values)
 
-const today = new Date().toISOString().substring(0,16);
-document.getElementById("app_date").min = '2019-02-17T10:38';
-
-for (let i = 0; i < mock.length; i++) {
-  console.log(mock[i])
-  const appointment = {};
-  // var pessoa = {};
-  appointment.appointment_date = mock[i].appointment_date;
-  appointment.appointment_state = mock[i].appointment_state;
-  appointment.doctor_name = mock[i].doctor_name;
-  appointment.cust_name = mock[i].cust_name;
-  appointment.appointment_value = mock[i].appointment_value;
+  let fetchOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: values,
+  };
+  let url = '/appointments/applynew';
   
-  let row = {};
-  row.template = document.createElement("template");
-  row.template.innerHTML = tmplHandle(appointment);
-  row.content = document.importNode(row.template.content, true);
-
-  table.appendChild(row.content);
-} */
+  try {
+    let res = await fetch(url, fetchOptions)
+    let { serverDataResponse } = res;
+    console.log(serverDataResponse)
+  } catch (error) {
+    console.error(error)
+  }
+});

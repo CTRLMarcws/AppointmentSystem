@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/applynew', async (req, res) => {
-    console.log('requisição', req)
+    console.log(req.body,'\n', req.route)
     try {
         const body = req.body;
         const appointment = await service.insertOne(

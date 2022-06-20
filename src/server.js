@@ -1,10 +1,10 @@
 const express = require ('express');
 const routes = require ('./routes/index');
 const { init } = require ('./database/init');
-const nunjucks = require("nunjucks")
+const cors = require('cors');
+const nunjucks = require("nunjucks");
 const app = express()
-const port = 4000;
-const bodyParser = require('body-parser');
+const port = 4001;
 
 nunjucks.configure("src/views",{
     express: app,
@@ -15,13 +15,20 @@ nunjucks.configure("src/views",{
 app.use(express.json());
 app.use(routes)
 
-// app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-// app.use(express.static("public"))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(cors())
+app.use(express.static("public"))
 
 app.get("/",(req, res) => {
     init();
     return res.render("index.html")
+})
+
+app.post('/applynew', async (req, res) => {
+    console.log('requisição')
+    console.log('\n\n\n\n', req.body)
+    return res.status(200)
 })
 
 //database 3306
