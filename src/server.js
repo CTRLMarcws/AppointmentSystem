@@ -4,6 +4,7 @@ const { init } = require ('./database/init');
 const nunjucks = require("nunjucks")
 const app = express()
 const port = 4000;
+const bodyParser = require('body-parser');
 
 nunjucks.configure("src/views",{
     express: app,
@@ -14,8 +15,9 @@ nunjucks.configure("src/views",{
 app.use(express.json());
 app.use(routes)
 
-app.use(express.static("public"))
-app.use(express.urlencoded({ extended: true }))
+// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+// app.use(express.static("public"))
 
 app.get("/",(req, res) => {
     init();

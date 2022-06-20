@@ -15,19 +15,23 @@ router.use(function timeLog(req, res, next) {
 router.get('/', async (req, res) => {
     const appointments = await service.readAll();
     console.log(appointments)
-    return res.render('appointment.html')
+    return res.render('appointment.html', {apps: appointments})
 });
 
-router.post('/applynew', (req, res) => {
+router.post('/applynew', async (req, res) => {
+    console.log('requisição', req)
     try {
-        const { appointment_id } = req.body;
-
-        const appointment = service.insertOne({
-            appointment_id
-        })
-        return res.json(appointment)
+        const body = req.body;
+        const appointment = await service.insertOne(
+            body.cx_doc_number,
+            body.app_value,
+            body.app_state,
+            body.app_doc_name,
+            body.app_date
+            )
+        return res.render('appointment.html', { saved: true })
     } catch (error) {
-        return response.status(400).json({ error })
+        return res.status(400).json({ error })
     }
 })
 

@@ -1,88 +1,121 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Agendamento</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="../styles/appointment.css"
-    />
-    <script src="../scripts/appointment.js"></script>
-  </head>
-  <body>
-    <h2>Agendamentos</h2>
+{% extends "layout.html" %}} {% set pageId = "appointment" %} {% block styles %}
+<!-- <link rel="stylesheet" href="/styles/home.css"> -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  media="screen"
+  href="../styles/appointment.css"
+/>
+{% endblock styles %} {% block content %}
+<h2>Agendamentos</h2>
 
-    <div class="container">
-      <form action="/" method="POST">
-        <div class="row">
-          <div class="col-label">
-            <label for="app_date">Data:</label>
-          </div>
-          <div class="col-input">
-            <input type="datetime-local" id="app_date" name="app_date" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-label">
-            <label for="app_state">Status:</label>
-          </div>
-          <div class="col-input">
-            <select id="app_state" name="app_state">
-              <option value="volvo">Iniciado</option>
-              <option value="saab">Agendado</option>
-              <option value="fiat">Concluido</option>
-              <option value="audi">Pago</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-label">
-            <label for="app_doc_name">Nome do médico:</label>
-          </div>
-          <div class="col-input">
-            <input type="text" id="app_doc_name" name="app_doc_name" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-label">
-            <label for="app_client">Nome do cliente:</label>
-          </div>
-          <div class="col-input">
-            <input type="search" id="app_client" name="app_client" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-label">
-            <label for="app_value">Valor:</label>
-          </div>
-          <div class="col-input">
-            <input
-              type="number"
-              min="0"
-              step="0.1"
-              id="app_value"
-              name="app_value"
-            />
-          </div>
-        </div>
-
-        <div class="row">
-          <input type="submit" value="Agendar" />
-        </div>
-      </form>
+<div class="container-content">
+  <form action="/appointments/applynew" method="POST">
+    curl 'http://localhost:4000/appointments/applynew' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'Accept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7' \
+  -H 'Cache-Control: max-age=0' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Origin: http://localhost:4000' \
+  -H 'Referer: http://localhost:4000/appointments/' \
+  -H 'Sec-Fetch-Dest: document' \
+  -H 'Sec-Fetch-Mode: navigate' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-User: ?1' \
+  -H 'Upgrade-Insecure-Requests: 1' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.115 Safari/537.36' \
+  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="102", "Google Chrome";v="102"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  --data-raw 'nome=eai+vei+' \
+  --compressed
+    <div class="row">
+      <div class="col-label">
+        <label for="app_date">Data:</label>
+      </div>
+      <div class="col-input">
+        <input type="datetime-local" id="app_date" name="app_date" />
+      </div>
     </div>
 
-    <br /><br /><br /><br />
+    <div class="row">
+      <div class="col-label">
+        <label for="app_state">Status:</label>
+      </div>
+      <div class="col-input">
+        <select id="app_state" name="app_state">
+          <option value="initialized">Iniciado</option>
+          <option value="scheduled">Agendado</option>
+          <option value="done">Concluido</option>
+          <option value="paid">Pago</option>
+        </select>
+      </div>
+    </div>
 
-    <!-- <table>
+    <div class="row">
+      <div class="col-label">
+        <label for="app_doc_name">Nome do médico:</label>
+      </div>
+      <div class="col-input">
+        <input type="text" id="app_doc_name" name="app_doc_name" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-label">
+        <label for="app_client">Nome do cliente:</label>
+      </div>
+      <div class="col-input">
+        <input type="search" id="app_client" name="app_client" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-label">
+        <label for="app_value">Valor:</label>
+      </div>
+      <div class="col-input">
+        <input
+          type="number"
+          min="0"
+          step="0.1"
+          id="app_value"
+          name="app_value"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit">Agendar</button>
+    </div>
+  </form>
+</div>
+<div class="container-table">
+  <table class="table">
+    <thead>
+      <th>Data</th>
+      <th>Status</th>
+      <th>Nome do médico</th>
+      <th>Nome do cliente</th>
+      <th>Valor</th>
+    </thead>
+    <tbody>
+      {% for app in apps %}
+      <tr>
+        <td>{{ app.appointment_date }}</td>
+        <td>{{ app.appointment_state }}</td>
+        <td>{{ app.doctor_name }}</td>
+        <td>{{ app.cust_name }}</td>
+        <td>{{ app.appointment_value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
+<!-- <br /><br /><br /><br /> -->
+
+<!-- <table>
         <tr>
           <th style="width: 100px;">Header 1</th>
           <th style="width: 100px;">Header 2</th>
@@ -99,28 +132,6 @@
           <td>Cell 3</td>
         </tr>
       </table> -->
-
-    <div class="container-table">
-      <!-- <script src="../scripts/appointment.js"></script> -->
-      <table class="table">
-        <thead>
-          <th>Data</th>
-          <th>Status</th>
-          <th>Nome do médico</th>
-          <th>Nome do cliente</th>
-          <th>Valor</th>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <script id="tmplLinha" type="text/template">
-        <tr>
-          <td>{{appointment_date}}</td>
-          <td>{{appointment_state}}</td>
-          <td>{{doctor_name}}</td>
-          <td>{{cust_name}}</td>
-          <td>{{appointment_value}}</td>
-        </tr>
-      </script>
-    </div>
-  </body>
-</html>
+{% block scripts %}
+<script src="../../public/scripts/appointment.js"></script>
+{% endblock scripts %}

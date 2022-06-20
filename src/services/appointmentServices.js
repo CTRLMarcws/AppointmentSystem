@@ -7,13 +7,17 @@ class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    insertOne(){
+    async insertOne(
+        cx_doc_number,
+        app_value,
+        app_state,
+        app_doc_name,
+        app_date){
         // find
         // same date? throw error
         // dados fazem sentido? regras de negocio
         let id = appointment_id;
-        const appointment = this.appointmentRepository.insert({id});
-        console.log()
+        const appointment = await this.appointmentRepository.insert(id);
         return appointment;
     }
 

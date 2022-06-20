@@ -1,13 +1,13 @@
-const mock = require('../../src/database/test.json');
+/* const mock = require('../../src/database/test.json');
 const table = document.querySelector(".table tbody");
 
 var tmplSource = document.getElementById("tmplLinha").innerHTML;
 // var tmplHandle = Handlebars.compile(tmplSource);
 
 
-/*
+
 date "app_date"
-*/
+
 const today = new Date().toISOString().substring(0,16);
 document.getElementById("app_date").min = '2019-02-17T10:38';
 
@@ -27,4 +27,4 @@ for (let i = 0; i < mock.length; i++) {
   row.content = document.importNode(row.template.content, true);
 
   table.appendChild(row.content);
-}
+} */
