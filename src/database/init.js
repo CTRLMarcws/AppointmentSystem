@@ -27,26 +27,34 @@ async function init() {
     }
   }
 
-  try {
-    const tables = await conn.query(`SHOW TABLES`);
-      if (tables[0].findIndex(t => t.Tables_in_schedulerdatabase == 'appointment') < 0) {
-      const appointmentTable = `CREATE TABLE APPOINTMENT (
-        appointment_id VARCHAR(36) PRIMARY KEY NOT NULL,
-        appointment_date TIMESTAMP NOT NULL,
-        appointment_state VARCHAR(10) NOT NULL,
-        doctor_name VARCHAR(50) NOT NULL,
-        appointment_value DECIMAL(5,2) NOT NULL,
-        cx_name VARCHAR(50) NOT NULL,
-        cx_doc_number BIGINT UNIQUE NOT NULL,
-        cx_phone_number BIGINT UNIQUE NOT NULL
-             )`;
-      await conn.query(appointmentTable);
-      console.log("created appointment table");
-    }
-  } catch (error) {
-    console.error(error);
-  }
+  const appointmentTable = `CREATE TABLE IF NOT EXISTS APPOINTMENT (
+    appointment_id VARCHAR(36) PRIMARY KEY NOT NULL,
+    appointment_date DATE NOT NULL,
+    appointment_state VARCHAR(10) NOT NULL,
+    doctor_name VARCHAR(50) NOT NULL,
+    appointment_value DECIMAL(5,2) NOT NULL,
+    cx_name VARCHAR(50) NOT NULL,
+    cx_doc_number BIGINT NOT NULL,
+    cx_phone_number BIGINT NOT NULL
+    )`;
 
+  conn.query(appointmentTable);
+
+  const procedure = `CREATE PROCEDURE Proc_ReadAll ()
+                        BEGIN
+                            SELECT appointment_id, 
+                            appointment_date,
+                            appointment_state,
+                            doctor_name,
+                            appointment_value,
+                            cx_name,
+                            cx_doc_number,
+                            cx_phone_number
+                        FROM appointment;
+                        END;`;
+
+  conn.query(`DROP PROCEDURE IF EXISTS Proc_ReadAll`);
+  conn.query(procedure);
   await conn.commit();
 }
 

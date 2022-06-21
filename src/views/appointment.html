@@ -9,8 +9,17 @@
 {% endblock styles %} {% block content %}
 <h2>Agendamentos</h2>
 
+
 <div class="container-content">
   <form method="POST" action="/appointments/applynew" id="apply-new-app">
+    <div class="row">
+      <div class="col-label">
+        <label for="app_Id">Identificador</label>
+      </div>
+      <div class="col-input">
+        <input type="text" disabled id="app_Id" class="inputs" name="app_Id" />
+      </div>
+    </div>
     <div class="row">
       <div class="col-label">
         <label for="app_date">Data:</label>
@@ -36,24 +45,6 @@
 
     <div class="row">
       <div class="col-label">
-        <label for="app_doc_name">Nome do médico:</label>
-      </div>
-      <div class="col-input">
-        <input type="text" id="app_doc_name" class="inputs" name="app_doc_name" />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-label">
-        <label for="app_client">Nome do cliente:</label>
-      </div>
-      <div class="col-input">
-        <input type="search" id="app_client" class="inputs" name="app_client" />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-label">
         <label for="app_value">Valor:</label>
       </div>
       <div class="col-input">
@@ -68,6 +59,43 @@
         />
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-label">
+        <label for="app_doctorName">Nome do médico:</label>
+      </div>
+      <div class="col-input">
+        <input type="text" id="app_doctorName" class="inputs" name="app_doctorName" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-label">
+        <label for="app_cxName">Nome do cliente:</label>
+      </div>
+      <div class="col-input">
+        <input type="text" id="app_cxName" class="inputs" name="app_cxName" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-label">
+        <label for="app_cxDocNumber">Documento do cliente:</label>
+      </div>
+      <div class="col-input">
+        <input type="text" id="app_cxDocNumber" class="inputs" name="app_cxDocNumber" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-label">
+        <label for="app_cxPhone">Número do cliente:</label>
+      </div>
+      <div class="col-input">
+        <input type="text" id="app_cxPhone" class="inputs" name="app_cxPhone" />
+      </div>
+    </div>
+
     <div class="row">
       <button type="submit" id="button-submit">Agendar</button>
     </div>
@@ -76,20 +104,26 @@
 <div class="container-table">
   <table class="table">
     <thead>
+      <th>ID</th>
       <th>Data</th>
       <th>Status</th>
+      <th>Valor</th>
       <th>Nome do médico</th>
       <th>Nome do cliente</th>
-      <th>Valor</th>
+      <th>Documento</th>
+      <th>Número</th>
     </thead>
     <tbody>
       {% for app in apps %}
       <tr>
-        <td>{{ app.appointment_date }}</td>
+        <td>{{ app.appointment_id }}</td>
         <td>{{ app.appointment_state }}</td>
-        <td>{{ app.doctor_name }}</td>
-        <td>{{ app.cust_name }}</td>
         <td>{{ app.appointment_value }}</td>
+        <td>{{ app.appointment_date }}</td>
+        <td>{{ app.doctor_name }}</td>
+        <td>{{ app.cx_name }}</td>
+        <td>{{ app.cx_doc_number }}</td>
+        <td>{{ app.cx_phone_number }}</td>
       </tr>
       {% endfor %}
     </tbody>
